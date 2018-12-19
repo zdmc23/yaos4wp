@@ -14,14 +14,14 @@ composer require nyholm/psr7
 
 ### Testing the authorization request via a Web Browser (it's possible with cURL -L, but you have to sift through response HTML for the code) 
 
-Replace the "redirect_uri" parameter with your desired URI (for mobile apps you can register a DeepLink to handle this)
+Replace `[YOUR_DOMAIN_OR_IP]` and `[YOUR_PORT]`. Replace the "redirect_uri" parameter with your desired URI (for mobile apps you can register a DeepLink to handle this)
 
-http://localhost:8000/yaos4wp/authorize?response_type=code&redirect_uri=http://localhost:8000/yaos4wp/callback&client_id=myawesomeapp&scope=basic&state=zz
+http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/yaos4wp/authorize?response_type=code&redirect_uri=http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/yaos4wp/callback&client_id=myawesomeapp&scope=basic&state=zz
 
 
 ### Testing the 'authorization_code' grant_type example
 
-Send the following cURL request. Replace `[CODE]` with the response code from previous authorization request above, and replace `[REDIRECT_URI]` with the same redirect_uri value used in the previous authorization request above:
+Send the following cURL request. Replace `[YOUR_DOMAIN_OR_IP]` and `[YOUR_PORT]`. Replace `[CODE]` with the response code from previous authorization request above, and replace `[REDIRECT_URI]` with the same redirect_uri value used in the previous authorization request above:
 
 ```
 curl -X POST "http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/yaos4wp/token" \
@@ -34,16 +34,16 @@ curl -X POST "http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/yaos4wp/token" \
 
 ### Testing an authorized resource request
 
-Send the following cURL request. Replace `[BEARER_TOKEN]` with the Bearer Token from previous 'authorization_code' grant_type request above:
+Send the following cURL request. Replace `[YOUR_DOMAIN_OR_IP]` and `[YOUR_PORT]`. Replace `[BEARER_TOKEN]` with the Bearer Token from previous 'authorization_code' grant_type request above:
 
 ```
-curl  "http://localhost:8000/wp-json/dt/v1/contacts" \
+curl  "http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/wp-json/dt/v1/contacts" \
   -H "Authorization: Bearer [BEARER_TOKEN]"
 ```
 
 ### Testing the 'refresh_token' grant_type example
 
-Send the following cURL request. Replace `[REFRESH_TOKEN]` with the Refresh Token from previous 'authorization_code' grant_type request above:
+Send the following cURL request. Replace `[YOUR_DOMAIN_OR_IP]` and `[YOUR_PORT]`. Replace `[REFRESH_TOKEN]` with the Refresh Token from previous 'authorization_code' grant_type request above:
 
 ```
 curl -X POST "http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/yaos4wp/token" \
