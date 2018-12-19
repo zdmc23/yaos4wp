@@ -86,6 +86,7 @@ class OAuth2Server {
     add_filter('determine_current_user', [$this, 'authenticate'], 20);
 
     $accessTokenRepository = new AccessTokenRepository();
+    $refreshTokenRepository = new RefreshTokenRepository();
     // Setup the authorization server
     $authorization_server = new AuthorizationServer(
       new ClientRepository(),
@@ -98,10 +99,17 @@ class OAuth2Server {
     $authorization_server->enableGrantType(
         new AuthCodeGrant(
             new AuthCodeRepository(),
-            new RefreshTokenRepository(),
+            $refreshTokenRepository,
             new \DateInterval('PT10M')
         ),
         new \DateInterval('PT1H')
+    );
+    // Enable the refresh token grant on the server
+    $grant = new \League\OAuth2\Server\Grant\RefreshTokenGrant($refreshTokenRepository);
+    $grant->setRefreshTokenTTL(new \DateInterval('P1M')); // new refresh tokens will expire after 1 month
+    $authorization_server->enableGrantType(
+      $grant,
+      new \DateInterval('PT1H') // new access tokens will expire after an hour
     );
     $this->authorizationServer = $authorization_server;
     // Setup the resource server
@@ -157,6 +165,9 @@ class OAuth2Server {
     } 
     if (strpos($_SERVER["REQUEST_URI"], '/yaos4wp/token') !== false) {
       $request_handler->handle_token_request();
+    }
+    if (strpos($_SERVER["REQUEST_URI"], '/yaos4wp/callback') !== false) {
+      $request_handler->handle_callback_request();
     }
     /*
     if (strpos($_SERVER["REQUEST_URI"], '/yaos4wp/nonce') !== false) {
@@ -256,6 +267,10 @@ class RequestHandler {
       var_dump($exception);
       exit;
     }
+  }
+  public function handle_callback_request() {
+    echo $_GET['code'];
+    exit;
   }
   public function handle_nonce_request() {
     echo wp_create_nonce('wp_rest');
