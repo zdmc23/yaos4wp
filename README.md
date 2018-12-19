@@ -3,6 +3,7 @@ Yet Another OAuth2 Server for WordPress (YAOS4WP)
 
 ## Installation
 
+0. Upload zip file via WP-Admin interface; Activate it
 0. Create a private key `openssl genrsa -out private.key 2048`
 0. Create a public key `openssl rsa -in private.key -pubout > public.key`
 0. WordPress likes keys to have a particular permissions: `sudo chmod 600 *.key`
@@ -16,8 +17,15 @@ composer require nyholm/psr7
 
 Replace `[YOUR_DOMAIN_OR_IP]` and `[YOUR_PORT]`. Replace the "redirect_uri" parameter with your desired URI (for mobile apps you can register a DeepLink to handle this)
 
+```
 http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/yaos4wp/authorize?response_type=code&redirect_uri=http://[YOUR_DOMAIN_OR_IP]:[YOUR_PORT]/yaos4wp/callback&client_id=myawesomeapp&scope=basic&state=zz
+```
 
+For example:
+
+```
+http://localhost:8000/yaos4wp/authorize?response_type=code&redirect_uri=http://localhost:8000/yaos4wp/callback&client_id=myawesomeapp&scope=basic&state=zz
+```
 
 ### Testing the 'authorization_code' grant_type example
 
