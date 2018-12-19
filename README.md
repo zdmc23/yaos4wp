@@ -1,7 +1,14 @@
 # yaos4wp
 Yet Another OAuth2 Server for WordPress (YAOS4WP)
 
-#### Authorize via a Web Browser (it's possible with cURL -L, but you have to sift through response HTML for the code) ####
+## Installation
+
+```
+composer require league/oauth2-server
+composer require nyholm/psr7
+```
+
+#### AUTHORIZE via a Web Browser (it's possible with cURL -L, but you have to sift through response HTML for the code) ####
 
 http://localhost:8000/yaos4wp/authorize?response_type=code&redirect_uri=http://localhost:8000/callback.php&state=zz&client_id=myawesomeapp&scope=basic
 
