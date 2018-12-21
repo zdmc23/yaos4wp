@@ -35,22 +35,36 @@ function wphw_opt(){
           <tr>
             <th scope="row">Authorize Endpoint: </th>
             <td>
-              http://localhost:8000/yaos4wp/authorize
+              <?php
+                echo "http://localhost" . ':' . $_SERVER['SERVER_PORT'] . "/yaos4wp/authorize";
+              ?>
             </td>
             <td>
-              (e.g., http://localhost:8000/yaos4wp/authorize?response_type=code&client_id=myawesomeapp&scope=basic&state=zz )
+              <?php
+                echo "(e.g., http://localhost" . ':' . $_SERVER['SERVER_PORT'] . "/yaos4wp/authorize?response_type=code&client_id=myawesomeapp&scope=basic&state=zz )";
+              ?>
             </td>
           </tr>
           <tr>
             <th scope="row">Redirect URI: </th>
             <td>
+              <!--
               <input type="text" name="footertextname" value="<?php echo get_option('footer_text');?>" style="width:350px;" />
+              -->
+              <?php
+                echo "http://localhost" . ':' . $_SERVER['SERVER_PORT'] . "/yaos4wp/callback";
+              ?>
+            </td>
+            <td>
+              (this is only an example that is coded for; it will print the auth code when redirection occurs. for mobile, you will *need* to use a DeepLink)
             </td>
           </tr>
           <tr>
             <th scope="row">Access Token Endpoint: </th>
             <td>
-              http://localhost:8000/yaos4wp/token
+              <?php
+                echo "http://localhost" . ':' . $_SERVER['SERVER_PORT'] . "/yaos4wp/token";
+              ?>
             </td>
           </tr>
           <tr>
