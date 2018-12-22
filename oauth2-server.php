@@ -174,6 +174,9 @@ class OAuth2Server {
       $request_handler->handle_nonce_request();
     } 
     */
+    if (strpos($_SERVER["REQUEST_URI"], '/yaos4wp/user') !== false) {
+      $request_handler->handle_user_request();
+    } 
   }
 }
 
@@ -274,6 +277,12 @@ class RequestHandler {
   }
   public function handle_nonce_request() {
     echo wp_create_nonce('wp_rest');
+    exit;
+  }
+  public function handle_user_request() {
+    header('Content-type: application/json');
+    $json = array("name"=>"zdmc", "picture"=>"https://zdmc.info/img/profile.png");
+    echo json_encode($json);
     exit;
   }
 }
